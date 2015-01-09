@@ -26,7 +26,7 @@ describe('The stem and leaf instance function', function () {
 });
 
 describe('The stem and leaf collection function', function () {
-    var single, mulptiple;
+    var single;
 
     beforeEach(function () {
         single = sal.collection([133.49]);
@@ -39,6 +39,7 @@ describe('The stem and leaf collection function', function () {
 
     it('should return an array of objects', function () {
         expect(single).toEqual(jasmine.any(Array));
+        expect(single[0]).toEqual(jasmine.any(Object));
     });
 
     it('should return the stem for a single element', function () {
