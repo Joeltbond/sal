@@ -1,4 +1,4 @@
-var sal = require('../stem_and_leaf');
+var sal = require('../sal');
 
 describe('The stem and leaf instance function', function () {
     it('should be defined', function () {
