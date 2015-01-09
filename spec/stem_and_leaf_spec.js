@@ -1,6 +1,6 @@
 var sal = require('../stem_and_leaf');
 
-describe('stem and leaf instance', function () {
+describe('The stem and leaf instance function', function () {
     it('should be defined', function () {
         expect(sal.instance).toBeDefined ();
     });
@@ -25,12 +25,27 @@ describe('stem and leaf instance', function () {
     });
 });
 
-describe('stem and leaf collection function', function () {
+describe('The stem and leaf collection function', function () {
+    var single, mulptiple;
+
+    beforeEach(function () {
+        single = sal.collection([133.49]);
+        mulptiple = sal.collection([33.4, 97.888, 43.9, 33]);
+    });
+
     it('should be defined', function () {
         expect(sal.collection).toBeDefined();
     });
 
-    it('should return an object', function() {
-        expect(sal.collection()).toEqual(jasmine.any(Object));
+    it('should return an array of objects', function () {
+        expect(single).toEqual(jasmine.any(Array));
+    });
+
+    it('should return the stem for a single element', function () {
+        expect(single[0].stem).toEqual(133);
+    });
+
+    it('should return the leaf for a single element', function () {
+        expect(single[0].leaf).toEqual(5);
     });
 })
