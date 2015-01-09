@@ -1,4 +1,4 @@
-var sal = (function () {
+module.exports = (function () {
     'use strict';
 
     return {
@@ -28,5 +28,3 @@ var sal = (function () {
     };
 
 }());
-
-module.exports = sal;
