@@ -27,7 +27,7 @@
         };
 
         /**
-         * Turn an array of numbers and return a sorted array of stem and leaf objects
+         * Take an array of numbers and return a sorted array of stem and leaf objects
          * @param  {Number[]}
          * @return {Object[]}
          */
