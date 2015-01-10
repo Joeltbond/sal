@@ -25,6 +25,7 @@
 
 			event.preventDefault();
 			stemArray.push(parseFloat(newCase.value, 10));
+			newCase.value = '';
 
 
 			stringArray = sal.processCollection(stemArray).map(function (stemAndLeaf) {
@@ -39,7 +40,7 @@
 				line = line + '</p>'
 
 				return line;
-			})
+			});
 
 			elem.innerHTML = stringArray.join('\n')
 
