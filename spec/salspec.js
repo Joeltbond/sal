@@ -1,52 +1,101 @@
 var sal = require('../sal');
 
-describe('The stem and leaf instance function', function () {
+describe('sal', function () {
     it('should be defined', function () {
-        expect(sal.instance).toBeDefined ();
+        expect(sal).toBeDefined();
     });
 
-    it('should return an array of two numbers', function () {
-        var stemAndLeafArray = sal.instance(23.4);
+    describe('The stem and leaf constructor method', function () {
+        var instance;
+        beforeEach(function () {
+            instance = new sal.StemAndLeaf(33.4);
+        });
 
-        expect(Array.isArray(stemAndLeafArray)).toBe(true);
-        expect(stemAndLeafArray.length).toEqual(2);
-        expect(typeof stemAndLeafArray[0] === 'number'
-                && typeof stemAndLeafArray[1] === 'number').toBe(true);
+        it('should be defined', function() {
+            expect(sal.StemAndLeaf).toBeDefined();
+        });
+
+        it('should return an object that has the stem as a property', function () {
+            expect(instance.stem).toEqual(33);
+        });
+
+        it('should return an object that has an array as a leaves property', function () {
+            expect(instance.leaves).toEqual([4]);
+        });
+
+        it('should have a zero stem for a value of zero', function () {
+            var zeroInstance = new sal.StemAndLeaf(0);
+            expect(zeroInstance.stem).toEqual(0);
+        });
+
+        it('should have a zero leaf for a value of zero', function () {
+            var zeroInstance = new sal.StemAndLeaf(0);
+            expect(zeroInstance.leaves).toEqual([0]);
+        });
+
+        it('should work for negative numbers', function () {
+            var negativeInstance = new sal.StemAndLeaf(-31.7);
+            expect(negativeInstance.stem).toEqual(-31);
+            expect(negativeInstance.leaves).toEqual([7]);
+        });
+
+        it('should round repeating decimals to the nearest tenth', function () {
+            var repeatingInstance = new sal.StemAndLeaf(200/3);
+            expect(repeatingInstance.stem).toEqual(66);
+            expect(repeatingInstance.leaves).toEqual([7]);
+        });
+
+        it('should return a stem leaf of zero for whole numbers', function () {
+            var wholeInstance = new sal.StemAndLeaf(49);
+            expect(wholeInstance.leaves).toEqual([0]);
+        });
+
+
+        describe('#pushLeaf()', function () {
+            beforeEach(function() {
+                instance = new sal.StemAndLeaf(26.2);
+            });
+
+            it('should be defined', function () {
+                expect(instance.pushLeaf).toBeDefined();
+            });
+
+            it('should add an element to the leaves array', function () {
+                instance.pushLeaf(4);
+                expect(instance.leaves.length).toEqual(2);
+            });
+
+            it('should sort the leaves in ascending order', function() {
+                instance.pushLeaf(1);
+                instance.pushLeaf(6);
+                expect(instance.leaves).toEqual([1,2,6]);
+            });
+
+            it('should not affect the stem', function() {
+                instance.pushLeaf(1);
+                instance.pushLeaf(6);
+                expect(instance.stem).toEqual(26);
+            });
+        });
     });
 
-    it('should return the stem as the first element of the array', function () {
-        expect(sal.instance(23.4)[0]).toEqual(23);
-        expect(sal.instance(10.6)[0]).toEqual(10);
+    describe('the processCollection method', function() {
+        it('should be defined', function () {
+            expect(sal.processCollection).toBeDefined();
+        });
+
+        it('should return an array of stem and leaf objects', function () {
+            expect(sal.processCollection([22.7])[0].constructor).toEqual(sal.StemAndLeaf);
+        });
+
+        it('should add a new object for each unique stem', function () {
+            var processedCollection = sal.processCollection([22.7, 33.4, -23, 22.2222]);
+            expect(processedCollection.length).toEqual(3);
+        });
+
+        var myTest = sal.processCollection([22.7, 33.4, -23, 22.2222, 22.1, 22.5, 22, 22, 22, 22])
+        console.log(myTest)
+
     });
 
-    it('should return the stem as the first element of the array', function () {
-        expect(sal.instance(23.4)[1]).toEqual(4);
-        expect(sal.instance(10.6)[1]).toEqual(6);
-    });
 });
-
-describe('The stem and leaf collection function', function () {
-    var single;
-
-    beforeEach(function () {
-        single = sal.collection([133.49]);
-        mulptiple = sal.collection([33.4, 97.888, 43.9, 33]);
-    });
-
-    it('should be defined', function () {
-        expect(sal.collection).toBeDefined();
-    });
-
-    it('should return an array of objects', function () {
-        expect(single).toEqual(jasmine.any(Array));
-        expect(single[0]).toEqual(jasmine.any(Object));
-    });
-
-    it('should return the stem for a single element', function () {
-        expect(single[0].stem).toEqual(133);
-    });
-
-    it('should return the leaf for a single element', function () {
-        expect(single[0].leaf).toEqual(5);
-    });
-})
