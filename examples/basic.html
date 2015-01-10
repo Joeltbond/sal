@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>basic example</title>
+</head>
+<body>
+<form id="addElementForm">
+	<input type="text" placeholder="Add a case..." id="newCase">
+	<input type="submit">
+</form>
+<div id="salPlot">
+</div>
+<script src="../sal.js"></script>
+<script>
+	(function (sal) {
+		'use strict';
+
+		var form = document.getElementById('addElementForm'),
+			newCase = document.getElementById('newCase'),
+			elem = document.getElementById('salPlot'),
+			stemArray = [];
+
+		form.addEventListener('submit', function (event) {
+			var stringArray;
+
+			event.preventDefault();
+			stemArray.push(parseFloat(newCase.value, 10));
+
+
+			stringArray = sal.processCollection(stemArray).map(function (stemAndLeaf) {
+				var line;
+
+				line = '<p>' +  stemAndLeaf.stem + ' | ';
+
+				stemAndLeaf.leaves.forEach(function (leaf) {
+					line = line + leaf;
+				})
+
+				line = line + '</p>'
+
+				return line;
+			})
+
+			elem.innerHTML = stringArray.join('\n')
+
+			console.log(stemArray);
+			
+		})
+
+	} (sal));
+</script>
+</body>
+</html>

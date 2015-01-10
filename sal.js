@@ -17,7 +17,7 @@
         };
 
         function processCollection(collection) {
-            var sortedCollection = collection.splice(0).sort(function (a, b) {
+            var sortedCollection = collection.slice(0).sort(function (a, b) {
                     return b - a;
                 }),
 
