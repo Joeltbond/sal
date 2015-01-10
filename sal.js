@@ -2,6 +2,12 @@
     'use strict';
 
     var sal = (function () {
+
+        /**
+         * Creates a new stem and leaf object
+         * @param {Number}
+         * @class
+         */
         function StemAndLeaf(value) {
             var sign = value < 0 ? '-' : '',
                 absValue = Math.abs(value);
@@ -9,6 +15,10 @@
             this.leaves = [Math.round(absValue % 1 * 10)];
         }
 
+        /**
+         * add a leaf to a stem and leaf object. Leaves will be sorted.
+         * @param  {Number}
+         */
         StemAndLeaf.prototype.pushLeaf = function(newStem) {
             this.leaves.push(newStem);
             this.leaves.sort(function (a, b) {
@@ -16,6 +26,11 @@
             });
         };
 
+        /**
+         * Turn an array of numbers and return a sorted array of stem and leaf objects
+         * @param  {Number[]}
+         * @return {Object[]}
+         */
         function processCollection(collection) {
             var sortedCollection = collection.slice(0).sort(function (a, b) {
                     return b - a;
