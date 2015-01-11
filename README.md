@@ -1,7 +1,7 @@
 # sal
 Stem and Leaf plots.
 
-![screenshot]("screenshot.png")
+![screenshot]("https://raw.githubusercontent.com/Joeltbond/sal/master/screenshot.png")
 
 Inspired by my old Statistics for Archaeologists book.
 
