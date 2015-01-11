@@ -1,9 +1,9 @@
-# sal
-Stem and Leaf plots.
+# sal.
+Stem and leaf plots in JavaScript.
 
-![screenshot]("screenshot.png")
+![screenshot](/screenshot.png)
 
 Inspired by my old Statistics for Archaeologists book.
 
-# TODO:
+### TODO:
 - allow variable base value
