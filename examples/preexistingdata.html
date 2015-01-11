@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>basic example</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="salPlot">
+</div>
+<script src="../sal.js"></script>
+<script>
+	(function (sal) {
+		'use strict';
+
+		var elem = document.getElementById('salPlot'),
+
+			data = [
+				12.8,11.5,14,1.3,10.3,9.8,2.3,
+				15.3,11.2,3.4,12.8,13.9,9,10.6,
+				9.9,13.4,8.7,3.8,11.7,1.7,12.3,
+				11,2.9,10.7,7.4,8.2,2.0,2.2,4.5
+			],
+
+		stringArray;
+
+		stringArray = sal.processCollection(data).map(function (stemAndLeaf) {
+			var line;
+			line = '<p><b>' +  stemAndLeaf.stem + ' | </b>';
+			stemAndLeaf.leaves.forEach(function (leaf) {
+				line = line + leaf;
+			});
+
+			line = line + '</p>'
+
+			return line;
+		});
+
+		elem.innerHTML = stringArray.join('\n');
+
+
+	} (sal));
+</script>
+</body>
+</html>
