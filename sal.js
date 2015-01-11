@@ -26,7 +26,7 @@
          * add a leaf to a stem and leaf object. Leaves will be sorted.
          * @param  {Number}
          */
-        StemAndLeaf.prototype.pushLeaf = function(newStem) {
+        StemAndLeaf.prototype.pushLeaf = function (newStem) {
             this.leaves.push(newStem);
             this.leaves.sort(function (a, b) {
                 return a - b;
@@ -44,29 +44,34 @@
                 }),
 
                 firstStem = new StemAndLeaf(sortedCollection[0]).stem,
-                lastStem = new StemAndLeaf(sortedCollection[sortedCollection.length -1]).stem,
+                lastStem = new StemAndLeaf(sortedCollection[sortedCollection.length - 1]).stem,
 
                 createdStems = [],
                 processedCollection = [],
 
-                i, j;
+                i,
+                j;
+
+            function pushLeaflessStem(i) {
+                var instance = new StemAndLeaf(i);
+                instance.leaves = [];
+                createdStems.push(instance.stem);
+                processedCollection.push(instance);
+            }
+
+            function addDataToPlot(value) {
+                var instance = new StemAndLeaf(value);
+                processedCollection[createdStems.indexOf(instance.stem)].pushLeaf(instance.leaves[0]);
+            }
 
             // First initialize the plot with empty stems so that there are no gaps
-            for (i = firstStem; i >= lastStem; i--) {
-                (function (i) {
-                    var instance = new StemAndLeaf(i);
-                    instance.leaves= [];
-                    createdStems.push(instance.stem);
-                    processedCollection.push(instance);
-                }(i));
+            for (i = firstStem; i >= lastStem; i -= 1) {
+                pushLeaflessStem(i);
             }
 
             // Then add the real data
-            for (j = 0; j < sortedCollection.length; j++) {
-                (function (value) {
-                    var instance = new StemAndLeaf(value);
-                    processedCollection[createdStems.indexOf(instance.stem)].pushLeaf(instance.leaves[0]);
-                }(sortedCollection[j]));
+            for (j = 0; j < sortedCollection.length; j += 1) {
+                addDataToPlot(j);
             }
 
             return processedCollection;
@@ -79,7 +84,7 @@
 
     }());
 
-    if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    if (typeof module === "object" && module && typeof module.exports === "object") {
         module.exports = sal;
     } else {
         window.sal = sal;

@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>basic example</title>
-	<link rel="stylesheet" href="style.css">
+    <title>basic example</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <form id="addElementForm">
-	<input type="text" placeholder="Add a case..." id="newCase">
-	<input type="submit">
+    <input type="text" placeholder="Add a case..." id="newCase">
+    <input type="submit">
 </form>
 <div id="salPlot">
 </div>
 <script src="../sal.js"></script>
 <script>
-	(function (sal) {
-		'use strict';
+(function (sal) {
+    'use strict';
 
-		var form = document.getElementById('addElementForm'),
-			newCase = document.getElementById('newCase'),
-			elem = document.getElementById('salPlot'),
-			stemArray = [];
+    var form = document.getElementById('addElementForm'),
+        newCase = document.getElementById('newCase'),
+        elem = document.getElementById('salPlot'),
+        stemArray = [];
 
-		form.addEventListener('submit', function (event) {
-			var stringArray;
+    form.addEventListener('submit', function (event) {
+        var stringArray;
 
-			event.preventDefault();
-			stemArray.push(parseFloat(newCase.value, 10));
-			newCase.value = '';
+        event.preventDefault();
+        stemArray.push(parseFloat(newCase.value, 10));
+        newCase.value = '';
 
 
-			stringArray = sal.processCollection(stemArray).map(function (stemAndLeaf) {
-				var line;
+        stringArray = sal.processCollection(stemArray).map(function (stemAndLeaf) {
+            var line;
 
-				line = '<p><b>' +  stemAndLeaf.stem + ' | </b>';
+            line = '<p><b>' +  stemAndLeaf.stem + ' | </b>';
 
-				stemAndLeaf.leaves.forEach(function (leaf) {
-					line = line + leaf;
-				})
+            stemAndLeaf.leaves.forEach(function (leaf) {
+                line = line + leaf;
+            });
 
-				line = line + '</p>'
+            line = line + '</p>'
 
-				return line;
-			});
+            return line;
+        });
 
-			elem.innerHTML = stringArray.join('\n');
-			
-		})
+        elem.innerHTML = stringArray.join('\n');
 
-	} (sal));
+    });
+
+}(sal));
 </script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 var sal = require('../sal');
 
 describe('sal', function () {
+    'use strict';
+
     it('should be defined', function () {
         expect(sal).toBeDefined();
     });
@@ -11,7 +13,7 @@ describe('sal', function () {
             instance = new sal.StemAndLeaf(33.4);
         });
 
-        it('should be defined', function() {
+        it('should be defined', function () {
             expect(sal.StemAndLeaf).toBeDefined();
         });
 
@@ -40,7 +42,7 @@ describe('sal', function () {
         });
 
         it('should round repeating decimals to the nearest tenth', function () {
-            var repeatingInstance = new sal.StemAndLeaf(200/3);
+            var repeatingInstance = new sal.StemAndLeaf(200 / 3);
             expect(repeatingInstance.stem).toEqual(66);
             expect(repeatingInstance.leaves).toEqual([7]);
         });
@@ -62,7 +64,7 @@ describe('sal', function () {
         });
 
         describe('#pushLeaf()', function () {
-            beforeEach(function() {
+            beforeEach(function () {
                 instance = new sal.StemAndLeaf(26.2);
             });
 
@@ -75,13 +77,13 @@ describe('sal', function () {
                 expect(instance.leaves.length).toEqual(2);
             });
 
-            it('should sort the leaves in ascending order', function() {
+            it('should sort the leaves in ascending order', function () {
                 instance.pushLeaf(1);
                 instance.pushLeaf(6);
-                expect(instance.leaves).toEqual([1,2,6]);
+                expect(instance.leaves).toEqual([1, 2, 6]);
             });
 
-            it('should not affect the stem', function() {
+            it('should not affect the stem', function () {
                 instance.pushLeaf(1);
                 instance.pushLeaf(6);
                 expect(instance.stem).toEqual(26);
@@ -89,7 +91,7 @@ describe('sal', function () {
         });
     });
 
-    describe('the processCollection method', function() {
+    describe('the processCollection method', function () {
         it('should be defined', function () {
             expect(sal.processCollection).toBeDefined();
         });
