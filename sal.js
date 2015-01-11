@@ -71,7 +71,7 @@
 
             // Then add the real data
             for (j = 0; j < sortedCollection.length; j += 1) {
-                addDataToPlot(j);
+                addDataToPlot(sortedCollection[j]);
             }
 
             return processedCollection;
