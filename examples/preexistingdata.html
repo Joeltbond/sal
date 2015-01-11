@@ -23,7 +23,7 @@
 
         stringArray;
 
-    stringArray = sal.processCollection(data).map(function (stemAndLeaf) {
+    stringArray = sal.processBatch(data).map(function (stemAndLeaf) {
         var line;
         line = '<p><b>' +  stemAndLeaf.stem + ' | </b>';
         stemAndLeaf.leaves.forEach(function (leaf) {

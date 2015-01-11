@@ -15,7 +15,7 @@
             this.leaves = [Math.round(absValue % 1 * 10)];
 
             //round up stem if leaf is 10
-            //TODO!
+            //TODO - integrate this into above.
             if (this.leaves[0] === 10) {
                 this.stem += 1;
                 this.leaves[0] = 0;
@@ -38,16 +38,16 @@
          * @param  {Number[]}
          * @return {Object[]}
          */
-        function processCollection(collection) {
-            var sortedCollection = collection.slice(0).sort(function (a, b) {
+        function processBatch(batch) {
+            var sortedBatch = batch.slice(0).sort(function (a, b) {
                     return b - a;
                 }),
 
-                firstStem = new StemAndLeaf(sortedCollection[0]).stem,
-                lastStem = new StemAndLeaf(sortedCollection[sortedCollection.length - 1]).stem,
+                firstStem = new StemAndLeaf(sortedBatch[0]).stem,
+                lastStem = new StemAndLeaf(sortedBatch[sortedBatch.length - 1]).stem,
 
                 createdStems = [],
-                processedCollection = [],
+                processedBatch = [],
 
                 i,
                 j;
@@ -56,12 +56,12 @@
                 var instance = new StemAndLeaf(i);
                 instance.leaves = [];
                 createdStems.push(instance.stem);
-                processedCollection.push(instance);
+                processedBatch.push(instance);
             }
 
-            function addDataToPlot(value) {
+            function addCaseToPlot(value) {
                 var instance = new StemAndLeaf(value);
-                processedCollection[createdStems.indexOf(instance.stem)].pushLeaf(instance.leaves[0]);
+                processedBatch[createdStems.indexOf(instance.stem)].pushLeaf(instance.leaves[0]);
             }
 
             // First initialize the plot with empty stems so that there are no gaps
@@ -70,16 +70,16 @@
             }
 
             // Then add the real data
-            for (j = 0; j < sortedCollection.length; j += 1) {
-                addDataToPlot(sortedCollection[j]);
+            for (j = 0; j < sortedBatch.length; j += 1) {
+                addCaseToPlot(sortedBatch[j]);
             }
 
-            return processedCollection;
+            return processedBatch;
         }
 
         return {
             StemAndLeaf: StemAndLeaf,
-            processCollection: processCollection
+            processBatch: processBatch
         };
 
     }());

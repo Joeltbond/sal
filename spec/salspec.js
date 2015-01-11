@@ -93,22 +93,22 @@ describe('sal', function () {
 
     describe('the processCollection method', function () {
         it('should be defined', function () {
-            expect(sal.processCollection).toBeDefined();
+            expect(sal.processBatch).toBeDefined();
         });
 
         it('should return an array of stem and leaf objects', function () {
-            expect(sal.processCollection([22.7])[0].constructor).toEqual(sal.StemAndLeaf);
+            expect(sal.processBatch([22.7])[0].constructor).toEqual(sal.StemAndLeaf);
         });
 
         it('should add a new object for each unique stem', function () {
-            var processedCollection = sal.processCollection([22.7, 22.2222, 22.726]);
-            expect(processedCollection.length).toEqual(1);
+            var processedBatch = sal.processBatch([22.7, 22.2222, 22.726]);
+            expect(processedBatch.length).toEqual(1);
         });
 
         it('should fill in the gaps between to cases with leafless stems', function () {
-            var collectionWithGap = sal.processCollection([21.2, 23.3]);
-            expect(collectionWithGap.length).toEqual(3);
-            expect(collectionWithGap[1].leaves.length).toEqual(0);
+            var batchWithGap = sal.processBatch([21.2, 23.3]);
+            expect(batchWithGap.length).toEqual(3);
+            expect(batchWithGap[1].leaves.length).toEqual(0);
         });
 
     });

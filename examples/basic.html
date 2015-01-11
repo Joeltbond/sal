@@ -29,7 +29,7 @@
         newCase.value = '';
 
 
-        stringArray = sal.processCollection(stemArray).map(function (stemAndLeaf) {
+        stringArray = sal.processBatch(stemArray).map(function (stemAndLeaf) {
             var line;
 
             line = '<p><b>' +  stemAndLeaf.stem + ' | </b>';
