@@ -13,6 +13,13 @@
                 absValue = Math.abs(value);
             this.stem = parseInt(sign + Math.floor(absValue), 10);
             this.leaves = [Math.round(absValue % 1 * 10)];
+
+            //round up stem if leaf is 10
+            //TODO!
+            if (this.leaves[0] === 10) {
+                this.stem += 1;
+                this.leaves[0] = 0;
+            }
         }
 
         /**
@@ -36,19 +43,31 @@
                     return b - a;
                 }),
 
+                firstStem = new StemAndLeaf(sortedCollection[0]).stem,
+                lastStem = new StemAndLeaf(sortedCollection[sortedCollection.length -1]).stem,
+
                 createdStems = [],
-                processedCollection = [];
+                processedCollection = [],
 
-            sortedCollection.forEach(function (value) {
-                var instance = new StemAndLeaf(value);
+                i, j;
 
-                if (createdStems.indexOf(instance.stem) === -1) {
-                    processedCollection.push(instance);
+            // First initialize the plot with empty stems so that there are no gaps
+            for (i = firstStem; i >= lastStem; i--) {
+                (function (i) {
+                    var instance = new StemAndLeaf(i);
+                    instance.leaves= [];
                     createdStems.push(instance.stem);
-                } else {
+                    processedCollection.push(instance);
+                }(i));
+            }
+
+            // Then add the real data
+            for (j = 0; j < sortedCollection.length; j++) {
+                (function (value) {
+                    var instance = new StemAndLeaf(value);
                     processedCollection[createdStems.indexOf(instance.stem)].pushLeaf(instance.leaves[0]);
-                }
-            });
+                }(sortedCollection[j]));
+            }
 
             return processedCollection;
         }

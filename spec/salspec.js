@@ -50,6 +50,16 @@ describe('sal', function () {
             expect(wholeInstance.leaves).toEqual([0]);
         });
 
+        it('should not return a leaf of 10', function () {
+            var highLeafInstance = new sal.StemAndLeaf(9.99);
+            expect(highLeafInstance.leaves).not.toEqual([10]);
+        });
+
+        it('should increment the stem if the leaf is 10 and set the leaf to 0', function () {
+            var highLeafInstance = new sal.StemAndLeaf(9.99);
+            expect(highLeafInstance.leaves).toEqual([0]);
+            expect(highLeafInstance.stem).toEqual(10);
+        });
 
         describe('#pushLeaf()', function () {
             beforeEach(function() {
@@ -89,12 +99,15 @@ describe('sal', function () {
         });
 
         it('should add a new object for each unique stem', function () {
-            var processedCollection = sal.processCollection([22.7, 33.4, -23, 22.2222]);
-            expect(processedCollection.length).toEqual(3);
+            var processedCollection = sal.processCollection([22.7, 22.2222, 22.726]);
+            expect(processedCollection.length).toEqual(1);
         });
 
-        var myTest = sal.processCollection([22.7, 33.4, -23, 22.2222, 22.1, 22.5, 22, 22, 22, 22])
-        console.log(myTest)
+        it('should fill in the gaps between to cases with leafless stems', function () {
+            var collectionWithGap = sal.processCollection([21.2, 23.3]);
+            expect(collectionWithGap.length).toEqual(3);
+            expect(collectionWithGap[1].leaves.length).toEqual(0);
+        });
 
     });
 

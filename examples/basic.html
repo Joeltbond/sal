@@ -31,7 +31,7 @@
 			stringArray = sal.processCollection(stemArray).map(function (stemAndLeaf) {
 				var line;
 
-				line = '<p>' +  stemAndLeaf.stem + ' | ';
+				line = '<p><b>' +  stemAndLeaf.stem + ' | </b>';
 
 				stemAndLeaf.leaves.forEach(function (leaf) {
 					line = line + leaf;
@@ -42,9 +42,7 @@
 				return line;
 			});
 
-			elem.innerHTML = stringArray.join('\n')
-
-			console.log(stemArray);
+			elem.innerHTML = stringArray.join('\n');
 			
 		})
 
