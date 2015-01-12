@@ -10,16 +10,9 @@
          */
         function StemAndLeaf(value) {
             var sign = value < 0 ? '-' : '',
-                absValue = Math.abs(value);
+                absValue = Math.round(Math.abs(value) * 10) / 10;
             this.stem = parseInt(sign + Math.floor(absValue), 10);
             this.leaves = [Math.round(absValue % 1 * 10)];
-
-            //round up stem if leaf is 10
-            //TODO - integrate this into above.
-            if (this.leaves[0] === 10) {
-                this.stem += 1;
-                this.leaves[0] = 0;
-            }
         }
 
         /**
